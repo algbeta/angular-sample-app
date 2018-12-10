@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { HeaderComponent } from './header/header.component'
 import { FooterComponent } from './footer/footer.component'
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component'
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component'
     FooterComponent,
     BreadcrumbsComponent
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, SharedModule],
   exports: [
     HeaderComponent,
     FooterComponent,
