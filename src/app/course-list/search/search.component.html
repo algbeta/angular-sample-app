@@ -1,4 +1,11 @@
 <form class="form-inline">
-  <input type="text" class="form-control" placeholder="Search" />
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search"
+    [(ngModel)]="searchValue"
+    name="search"
+    (change)="onChange($event)"
+  />
   <app-button [label]="'Search'" [type]="'submit'" class="ml-1"></app-button>
 </form>

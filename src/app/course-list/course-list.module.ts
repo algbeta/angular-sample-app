@@ -6,6 +6,7 @@ import { MenuComponent } from './menu/menu.component';
 import { SearchComponent } from './search/search.component';
 import { SharedModule } from '../shared/shared.module';
 import { CourseDescriptionComponent } from './course-description/course-description.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CourseDescriptionComponent } from './course-description/course-descript
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   exports: [
     CoursesComponent,
