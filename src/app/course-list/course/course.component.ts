@@ -13,8 +13,8 @@ export class CourseComponent implements OnInit {
 
   constructor() {}
 
-  onDeleteBtnClick(ev) {
-    this.deleteCourse.emit(ev)
+  onDeleteBtnClick() {
+    this.deleteCourse.emit(this.course.id);
   }
 
   ngOnInit() {}

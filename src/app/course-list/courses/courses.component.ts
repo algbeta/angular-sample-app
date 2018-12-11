@@ -30,8 +30,8 @@ export class CoursesComponent implements OnInit {
     ];
   }
 
-  deleteCourse(ev) {
-    console.log(`Courses component's delete course is called: ${ev}`);
+  deleteCourse(courseId) {
+    console.log(`Courses component's delete course is called: ${courseId}`);
   }
 
   loadMore() {
