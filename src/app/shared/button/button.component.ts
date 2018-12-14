@@ -12,6 +12,7 @@ export class ButtonComponent implements OnInit {
   constructor() {}
 
   onClick(ev) {
+    ev.stopPropagation();
     this.click.emit(ev);
   }
   ngOnInit() {}
