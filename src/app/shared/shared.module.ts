@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button/button.component';
-import { MinuteToHoursPipe } from './minutesTohours.pipe';
+import { MinuteToHoursPipe } from './minutes-to-hours.pipe';
 
 @NgModule({
   declarations: [ButtonComponent, MinuteToHoursPipe],

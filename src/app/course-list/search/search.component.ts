@@ -9,7 +9,7 @@ export class SearchComponent implements OnInit {
   searchValue = "";
   constructor() {}
 
-  onChange() {
+  onClick() {
     console.log(this.searchValue)
   }
   ngOnInit() {}
