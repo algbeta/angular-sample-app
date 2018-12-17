@@ -7,6 +7,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { CourseListModule } from './course-list/course-list.module';
 
+
 @NgModule({
   declarations: [
     AppComponent

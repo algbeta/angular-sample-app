@@ -5,3 +5,5 @@ class Course implements ICourse {
   duration: number;
   description?: string; 
 }
+
+export default Course
