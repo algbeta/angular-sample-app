@@ -27,7 +27,12 @@ describe('HeaderComponent with nested component dependencies included', () => {
   })
 
   it('logOff btn click should call component method', () => {
+    spyOn(<any>HeaderComponent.prototype, 'logOff'); 
+    const headerDe: DebugElement = fixture.debugElement;
+    const logOffBtnDe = headerDe.query(By.css('.logoff-btn'));
     
+    logOffBtnDe.triggerEventHandler('click', null);
+    expect(HeaderComponent.prototype.logOff).toHaveBeenCalled()
   })
 })
 
