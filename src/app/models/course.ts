@@ -1,3 +1,5 @@
+import ICourse from './course.interface'
+
 class Course implements ICourse {
   id: string;
   title: string;
@@ -6,4 +8,5 @@ class Course implements ICourse {
   description?: string; 
 }
 
-export default Course
+export default Course;
+

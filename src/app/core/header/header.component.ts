@@ -11,4 +11,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
   }
 
+  logOff() {
+    console.log('header logoff btn clicked!');
+  }
+
 }
