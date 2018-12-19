@@ -4,6 +4,8 @@ import { By } from '@angular/platform-browser'
 import { DebugElement } from '@angular/core'
 import { SharedModule } from 'src/app/shared/shared.module'
 import { MenuComponent } from './menu.component'
+import { SearchComponent } from '../search/search.component';
+import { FormsModule } from '@angular/forms';
 
 describe('MenuComponent tests without nested components', () => {
   let component: MenuComponent
@@ -43,8 +45,8 @@ describe('Menu components with dependencies', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MenuComponent],
-      imports: [SharedModule]
+      declarations: [MenuComponent, SearchComponent],
+      imports: [SharedModule, FormsModule]
     }).compileComponents()
   }))
 
