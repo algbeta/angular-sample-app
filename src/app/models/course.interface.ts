@@ -5,3 +5,5 @@ interface ICourse {
   duration: number;
   description?: string; 
 }
+
+export default ICourse;

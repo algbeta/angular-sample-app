@@ -1,9 +1,16 @@
 <div class="card">
   <div class="card-body row">
-    <app-course-description [course]="course" class="col-11"></app-course-description>
+    <app-course-description
+      [course]="course"
+      class="col-11"
+    ></app-course-description>
     <div class="col-1">
       <app-button label="Edit" class="mb-1 course-btn"></app-button>
-      <app-button label="Delete" class="course-btn" (click)="deleteCourse.emit(course.id)"></app-button>
+      <app-button
+        label="Delete"
+        class="course-btn delete-course-btn"
+        (click)="deleteCourse.emit(course.id)"
+      ></app-button>
     </div>
   </div>
 </div>
