@@ -38,30 +38,3 @@ describe('MenuComponent tests without nested components', () => {
     expect(btnDe.attributes.label).toEqual('Add course');
   });
 });
-
-describe('Menu components with dependencies', () => {
-  let component: MenuComponent;
-  let fixture: ComponentFixture<MenuComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [MenuComponent, SearchComponent],
-      imports: [SharedModule, FormsModule]
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MenuComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should call proper method on btn click', () => {
-    spyOn(<any>MenuComponent.prototype, 'search');
-    const headerDe: DebugElement = fixture.debugElement;
-    const searchBtnDe = headerDe.query(By.css('.menu-search-btn'));
-
-    searchBtnDe.nativeElement.click();
-    expect(MenuComponent.prototype.search).toHaveBeenCalled();
-  });
-});
