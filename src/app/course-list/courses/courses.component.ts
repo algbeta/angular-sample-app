@@ -15,7 +15,7 @@ export class CoursesComponent implements OnInit {
       {
         id: 'hash1',
         title: 'Bohemian Rhapsody',
-        creationDate: new Date(2018, 9),
+        creationDate: new Date(2018, 11),
         duration: 133,
         topRated: false,
         description:
@@ -33,7 +33,7 @@ export class CoursesComponent implements OnInit {
         id: 'hash3',
         title: 'The Lego Movie 2: The Second Part',
         creationDate: new Date(2019, 9),
-        duration: 90,
+        duration: 55,
         topRated: false,
         description: 'The citizens of Bricksburg face a dangerous new threat when LEGO DUPLO invaders from outer space start to wreck everything in their path. The battle to defeat the enemy and restore harmony to the LEGO universe takes Emmet, Lucy, Batman and the rest of their friends to faraway, unexplored worlds that test their courage and creativity.'
       }
