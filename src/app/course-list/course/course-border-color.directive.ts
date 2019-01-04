@@ -14,7 +14,7 @@ export class CourseBorderColorDirective implements OnInit{
     const timeDiff = Date.now() - this.appCourseBorderColor.creationDate.getTime();
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-    if (diffDays <= 14 && diffDays > 0) {
+    if (diffDays <= 14) {
       this.el.nativeElement.style.borderColor = 'green'
     }
 

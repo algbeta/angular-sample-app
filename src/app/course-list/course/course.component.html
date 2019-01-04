@@ -1,4 +1,4 @@
-<div class="card" [appCourseBorderColor]="course">
+<div class="card" [appCourseBorderColor]="course" [ngClass]="{topRated: course.topRated}">
   <div class="card-body row">
     <app-course-description
       [course]="course"
