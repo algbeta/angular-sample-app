@@ -7,6 +7,7 @@ import { SearchComponent } from './search/search.component';
 import { SharedModule } from '../shared/shared.module';
 import { CourseDescriptionComponent } from './course-description/course-description.component';
 import { FormsModule } from '@angular/forms';
+import { CourseBorderColorDirective } from './course/course-border-color.directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     CoursesComponent,
     MenuComponent,
     SearchComponent,
-    CourseDescriptionComponent
+    CourseDescriptionComponent,
+    CourseBorderColorDirective
   ],
   imports: [
     CommonModule,

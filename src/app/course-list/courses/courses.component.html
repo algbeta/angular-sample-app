@@ -6,5 +6,6 @@
     (deleteCourse)="deleteCourse($event)"
   >
   </app-course>
+  <div *ngIf="courses.length === 0">No data. Feel free to add a new course</div>
   <app-button label="Load more" (clickHandler)="loadMore()"></app-button>
 </div>
