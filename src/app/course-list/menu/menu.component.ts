@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -6,11 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
+  @Output() setSearchPhrase: EventEmitter<string> = new EventEmitter<string>();
   constructor() {}
 
   ngOnInit() {}
 
-  search() {
-    console.log('Menu Component search handler is called');
+  setSearchPhraseHandler(ev) {
+    this.setSearchPhrase.emit(ev);
   }
 }

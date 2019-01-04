@@ -4,6 +4,7 @@
     class="form-control"
     placeholder="Search"
     [(ngModel)]="searchValue"
+    (keyup)="checkIfEmpty()"
     name="search"
   />
   <app-button

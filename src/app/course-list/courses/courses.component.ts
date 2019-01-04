@@ -8,6 +8,7 @@ import Course from '../../models/course'
 })
 export class CoursesComponent implements OnInit {
   courses: Course[];
+  searchPhrase: string = '';
   constructor() {}
 
   ngOnInit() {
@@ -42,6 +43,10 @@ export class CoursesComponent implements OnInit {
 
   deleteCourse(courseId) {
     console.log(`Courses component's delete course is called: ${courseId}`);
+  }
+
+  setSearchPhrase(phrase) {
+    this.searchPhrase = phrase
   }
 
   loadMore() {
