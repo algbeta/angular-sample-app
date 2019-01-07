@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, HostBinding } from '@angular/core';
 import Course from '../../models/course';
 
 @Directive({
@@ -6,7 +6,7 @@ import Course from '../../models/course';
 })
 export class CourseBorderColorDirective implements OnInit{
   @Input() appCourseBorderColor: Course;
-
+  @HostBinding('style.borderColor') borderColor: string;
   constructor(private el: ElementRef) {}
 
   ngOnInit() {
@@ -15,11 +15,11 @@ export class CourseBorderColorDirective implements OnInit{
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
     if (diffDays <= 14) {
-      this.el.nativeElement.style.borderColor = 'green'
+      this.borderColor = 'green'
     }
 
     if (diffDays < 0) {
-      this.el.nativeElement.style.borderColor = 'blue'
+      this.borderColor = 'blue'
     }
   }
 }
