@@ -8,6 +8,7 @@ export class OrderByPipe implements PipeTransform {
     if (!Array.isArray(array)) {
       return;
     }
-    return array.sort((a, b) => a[field] - b[field]);
+    const copy = [...array]
+    return copy.sort((a, b) => a[field] - b[field]);
   }
 }
