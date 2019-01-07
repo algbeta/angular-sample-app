@@ -12,10 +12,9 @@ export class FilterByPipe implements PipeTransform {
     if (!searchString) {
       return array;
     }
-
+    const searchStr = searchString.toLowerCase();
     const filteredArray = array.filter(item => {
       const title = item.title.toLowerCase();
-      const searchStr = searchString.toLowerCase();
       return title.indexOf(searchStr) !== -1
     });
     return filteredArray;
