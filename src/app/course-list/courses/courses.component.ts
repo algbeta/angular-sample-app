@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import Course from '../../models/course'
+import Course from '../../models/course';
+import { CourseService } from '../services/course.service';
 
 @Component({
   selector: 'app-courses',
@@ -9,18 +10,23 @@ import Course from '../../models/course'
 export class CoursesComponent implements OnInit {
   courses: Course[];
   searchPhrase: string = '';
-  constructor() {}
+  constructor(private courseService: CourseService) {}
 
   ngOnInit() {
-   
+    this.getCourses();
+  }
+
+  getCourses(): void {
+    this.courses = this.courseService.getList();
   }
 
   deleteCourse(courseId) {
-    console.log(`Courses component's delete course is called: ${courseId}`);
+    this.courseService.removeItem(courseId);
+    this.getCourses()
   }
 
   setSearchPhrase(phrase) {
-    this.searchPhrase = phrase
+    this.searchPhrase = phrase;
   }
 
   loadMore() {
