@@ -1,15 +1,16 @@
 <div class="form-inline">
   <input
+    #searchInput
     type="text"
     class="form-control"
     placeholder="Search"
-    [(ngModel)]="searchValue"
+    (keyup)="!searchInput.value && updateSearchValue(searchInput.value)"
     name="search"
   />
   <app-button
     label="Search"
     type="button"
-    (click)="onClick($event)"
+    (click)="updateSearchValue(searchInput.value)"
     class="ml-1 menu-search-btn"
   ></app-button>
 </div>
