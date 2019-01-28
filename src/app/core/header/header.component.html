@@ -3,7 +3,8 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <a class="nav-link user-login" href="#">User login</a>
+        <span *ngIf="authService.isAuthenticated()" class="nav-link user-login">Hello, {{authService.getUserInfo()}}!</span>
+        <a *ngIf="!authService.isAuthenticated()" class="nav-link user-login" href="/login">User login</a>
       </li>
       <li class="nav-item active">
         <app-button label="Log off" type="button" (click)="logOff($event)" class="logoff-btn"></app-button>

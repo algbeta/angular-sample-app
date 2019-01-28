@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import Course from '../../models/course';
-import { CourseService } from '../services/course.service';
+import { CourseService } from '../../services/course.service';
 
 @Component({
   selector: 'app-courses',
@@ -20,7 +20,7 @@ export class CoursesComponent implements OnInit {
     this.courses = this.courseService.getList();
   }
 
-  deleteCourse(courseId) {
+  deleteCourse(courseId: string) {
     this.courseService.removeItem(courseId);
     this.getCourses()
   }

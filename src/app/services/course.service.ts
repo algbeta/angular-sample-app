@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import Course from '../../models/course';
+import Course from '../models/course';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +46,7 @@ export class CourseService {
     return course;
   }
 
-  getItemById(id: String): Course {
+  getItemById(id: string): Course {
     const course = this.courses.filter(item => item.id === id);
     if (course && course.length > 0) {
       return course[0];
@@ -54,7 +54,7 @@ export class CourseService {
     return null;
   }
 
-  removeItem(id: String): Boolean {
+  removeItem(id: string): Boolean {
     const index = this.courses.findIndex(item => item.id === id);
     const copy = [...this.courses];
     if (index !== -1) {
