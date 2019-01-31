@@ -1,31 +1,27 @@
 import { Injectable } from '@angular/core';
-import {
-  setItemInLocalStorage,
-  removeItemFromLocalStorage,
-  getItemFromLocalStorage
-} from '../utils';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor() {}
+  constructor(private localStorageService: LocalStorageService) {}
 
   login(user: any): boolean {
-    return setItemInLocalStorage('user', user);
+    return this.localStorageService.setItemInLocalStorage('user', user);
   }
 
   logout(): void {
-    removeItemFromLocalStorage('user');
+    this.localStorageService.removeItemFromLocalStorage('user');
   }
 
   isAuthenticated(): boolean {
-    const userData = getItemFromLocalStorage('user');
+    const userData = this.localStorageService.getItemFromLocalStorage('user');
     return !!userData;
   }
 
   getUserInfo(): string {
-    const userData = getItemFromLocalStorage('user');
+    const userData = this.localStorageService.getItemFromLocalStorage('user');
     if (userData) {
       return userData.login;
     }

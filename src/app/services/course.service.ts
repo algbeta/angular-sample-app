@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import Course from '../models/course';
 
 @Injectable({
@@ -36,26 +37,23 @@ export class CourseService {
   ];
   constructor() {}
 
-  getList(): Course[] {
-    return this.courses;
+  getList(): Observable<Course[]> {
+    return of(this.courses);
   }
 
-  createItem(course: Course): Course {
+  createItem(course: Course): Observable<Course> {
     course.id = `${course.title}-${this.courses.length}`;
     this.courses.push(course);
-    return course;
+    return of(course);
   }
 
-  getItemById(id: string): Course {
-    const course = this.courses.filter(item => item.id === id);
-    if (course && course.length > 0) {
-      return course[0];
-    }
-    return null;
+  getItemById(id: string): Observable<Course> {
+    const course = this.courses.find((item) => item.id === id);
+    return of(course);
   }
 
   removeItem(id: string): Boolean {
-    const index = this.courses.findIndex(item => item.id === id);
+    const index = this.courses.findIndex((item) => item.id === id);
     const copy = [...this.courses];
     if (index !== -1) {
       copy.splice(index, 1);
@@ -67,7 +65,7 @@ export class CourseService {
   }
 
   updateItem(course: Course): Boolean {
-    const index = this.courses.findIndex(item => item.id === course.id);
+    const index = this.courses.findIndex((item) => item.id === course.id);
     const copy = [...this.courses];
     if (index !== -1) {
       copy.splice(index, 1, course);

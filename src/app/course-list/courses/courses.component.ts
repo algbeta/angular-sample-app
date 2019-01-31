@@ -17,7 +17,9 @@ export class CoursesComponent implements OnInit {
   }
 
   getCourses(): void {
-    this.courses = this.courseService.getList();
+    this.courseService.getList().subscribe((data: Course[]) => {
+      this.courses = data;
+    });
   }
 
   deleteCourse(courseId: string) {

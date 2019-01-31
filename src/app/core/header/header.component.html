@@ -2,13 +2,31 @@
   <a class="navbar-brand" href="#">Logo</a>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
+      <li
+        class="nav-item active"
+        *ngIf="
+          authService.isAuthenticated();
+          then authorizedMessage;
+          else loginBlock
+        "
+      ></li>
       <li class="nav-item active">
-        <span *ngIf="authService.isAuthenticated()" class="nav-link user-login">Hello, {{authService.getUserInfo()}}!</span>
-        <a *ngIf="!authService.isAuthenticated()" class="nav-link user-login" href="/login">User login</a>
-      </li>
-      <li class="nav-item active">
-        <app-button label="Log off" type="button" (click)="logOff($event)" class="logoff-btn"></app-button>
+        <app-button
+          label="Log off"
+          type="button"
+          (click)="logOff($event)"
+          class="logoff-btn"
+        ></app-button>
       </li>
     </ul>
   </div>
 </header>
+
+<ng-template #authorizedMessage
+  ><span class="nav-link user-login"
+    >Hello, {{ authService.getUserInfo() }}!</span
+  ></ng-template
+>
+<ng-template #loginBlock>
+  <a class="nav-link user-login" href="/login">User login</a></ng-template
+>
