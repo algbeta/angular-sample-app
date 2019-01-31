@@ -52,27 +52,27 @@ export class CourseService {
     return of(course);
   }
 
-  removeItem(id: string): Boolean {
+  removeItem(id: string): Observable<Boolean> {
     const index = this.courses.findIndex((item) => item.id === id);
     const copy = [...this.courses];
     if (index !== -1) {
       copy.splice(index, 1);
       this.courses = copy;
-      return true;
+      return of(true);
     }
 
-    return false;
+    return of(false);
   }
 
-  updateItem(course: Course): Boolean {
+  updateItem(course: Course): Observable<Boolean> {
     const index = this.courses.findIndex((item) => item.id === course.id);
     const copy = [...this.courses];
     if (index !== -1) {
       copy.splice(index, 1, course);
       this.courses = copy;
-      return true;
+      return of(true);
     }
 
-    return false;
+    return of(false);
   }
 }

@@ -23,8 +23,7 @@ export class CoursesComponent implements OnInit {
   }
 
   deleteCourse(courseId: string) {
-    this.courseService.removeItem(courseId);
-    this.getCourses()
+    this.courseService.removeItem(courseId).subscribe();
   }
 
   setSearchPhrase(phrase) {
