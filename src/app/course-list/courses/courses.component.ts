@@ -22,8 +22,10 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  deleteCourse(courseId: string) {
-    this.courseService.removeItem(courseId).subscribe();
+  deleteCourse(courseId: string): void {
+    this.courseService.removeItem(courseId).subscribe((data: Course[]) => {
+      this.courses = data;
+    });
   }
 
   setSearchPhrase(phrase) {
