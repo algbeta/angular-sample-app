@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { CourseListModule } from './course-list/course-list.module';
+import { LoginModule } from './login/login.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { CourseListModule } from './course-list/course-list.module';
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    CourseListModule
+    CourseListModule,
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]
