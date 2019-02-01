@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Input } from '@angular/core';
 import Course from '../../models/course';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-course',
@@ -11,7 +12,11 @@ export class CourseComponent implements OnInit {
   @Input() course: Course;
   @Output() deleteCourse: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
+
+  navigateToCourseForm() {
+    this.router.navigate(['/course-edit', this.course.id]);
+  }
 }
