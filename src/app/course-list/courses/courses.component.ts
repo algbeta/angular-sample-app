@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import Course from '../../models/course';
 import { CourseService } from '../../services/course.service';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
@@ -9,17 +12,22 @@ import { CourseService } from '../../services/course.service';
 })
 export class CoursesComponent implements OnInit {
   courses: Course[];
+  courses$: Observable<Course[]>;
+  selectedCourseId: string;
   searchPhrase: string = '';
-  constructor(private courseService: CourseService) {}
+  constructor(private courseService: CourseService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.getCourses();
   }
 
-  getCourses(): void {
-    this.courseService.getList().subscribe((data: Course[]) => {
-      this.courses = data;
-    });
+  getCourses() {
+    this.courses$ = this.route.paramMap.pipe(
+      switchMap(params => {
+        this.selectedCourseId = params.get('id');
+        return this.courseService.getList();
+      })
+    );
   }
 
   deleteCourse(courseId: string): void {

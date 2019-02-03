@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import Course from '../models/course';
 
 @Injectable({
@@ -48,8 +49,7 @@ export class CourseService {
   }
 
   getItemById(id: string): Observable<Course> {
-    const course = this.courses.find((item) => item.id === id);
-    return of(course);
+    return this.getList().pipe(map((courses: Course[]) => courses.find(course => course.id === id)))
   }
 
   removeItem(id: string): Observable<Course[]> {

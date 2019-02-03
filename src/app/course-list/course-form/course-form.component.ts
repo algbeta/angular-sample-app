@@ -1,9 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input } from '@angular/core';
 import Course from 'src/app/models/course';
-import { ActivatedRoute, Router, ParamMap } from '@angular/router';
-import { CourseService } from 'src/app/services/course.service';
-import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-course-form',
@@ -11,14 +7,12 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./course-form.component.scss']
 })
 export class CourseFormComponent implements OnInit {
-  course$: Observable<Course>;
+  @Input() course: Course;
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private service: CourseService
   ) { }
 
   ngOnInit() {
+    console.log(this.course);
   }
 
 }
