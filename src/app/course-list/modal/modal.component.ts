@@ -6,7 +6,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnInit {
-  private open: boolean = false;
+  open: boolean = false;
   private courseId: string = '';
   @Output() handlerOnConfirm: EventEmitter<string> = new EventEmitter<string>();
   constructor() {}

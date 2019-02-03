@@ -8,11 +8,9 @@ import Course from 'src/app/models/course';
 })
 export class CourseFormComponent implements OnInit {
   @Input() course: Course;
-  constructor(
-  ) { }
+  constructor() {}
 
   ngOnInit() {
     console.log(this.course);
   }
-
 }

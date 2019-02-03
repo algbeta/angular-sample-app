@@ -7,8 +7,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
-  private login: string = '';
-  private password: string = '';
+  login: string = '';
+  password: string = '';
   constructor(private authService: AuthService) {}
 
   ngOnInit() {}
