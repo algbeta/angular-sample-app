@@ -11,6 +11,7 @@ import { CourseBorderColorDirective } from './course/course-border-color.directi
 import { ModalComponent } from './modal/modal.component';
 import { CourseFormComponent } from './course-form/course-form.component';
 import { EditCourseFormComponent } from './edit-course-form/edit-course-form.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EditCourseFormComponent } from './edit-course-form/edit-course-form.com
   imports: [
     CommonModule,
     SharedModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   exports: [
     CoursesComponent,
