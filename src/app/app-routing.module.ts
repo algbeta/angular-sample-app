@@ -9,11 +9,11 @@ import { PageNotFoundComponent } from './core/page-not-found/page-not-found.comp
 import { CoreModule } from './core/core.module';
 
 const routes: Routes = [
-  { path: '', component: CoursesComponent },
+  { path: '', redirectTo: 'courses', pathMatch: 'full' },
   { path: 'courses', component: CoursesComponent },
+  { path: 'courses/new', component: CourseFormComponent },
+  { path: 'courses/:id', component: EditCourseFormComponent },
   { path: 'login', component: LoginPageComponent },
-  { path: 'course-edit', component: CourseFormComponent },
-  { path: 'course-edit/:id', component: EditCourseFormComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
