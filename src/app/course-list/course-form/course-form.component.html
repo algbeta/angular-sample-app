@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="form-group">
+    <label for="courseTitle">Title</label>
+    <input
+      type="text"
+      class="form-control"
+      id="courseTitle"
+      placeholder="title"
+      [value]="course.title || ''"
+    />
+  </div>
+  <div class="form-group">
+    <label for="courseDescription">Description</label>
+    <textarea
+      class="form-control"
+      id="courseDescription"
+      rows="3"
+      placeholder="course description"
+      [value]="course.description || ''"
+    ></textarea>
+  </div>
+  <div class="form-group">
+    <label for="courseDate">Date</label>
+    <input
+      class="form-control"
+      id="courseDate"
+      placeholder="course creation date"
+      [value]="(course.creationDate | date: 'dd.MM.yyyy') || ''"
+    />
+  </div>
+  <div class="form-group">
+    <label for="courseDuration">Duration</label>
+    <input
+      class="form-control"
+      id="courseDuration"
+      placeholder="course duration in minutes"
+      [value]="course.duration || ''"
+    />
+    <span>{{ (course.duration | minutesToHours) || '' }}</span>
+  </div>
+  <div class="form-group">
+    <label for="courseDuration">Authors</label>
+    <input
+      class="form-control"
+      id="courseDuration"
+      placeholder="course authors"
+    />
+  </div>
+  <button type="button" class="btn btn-primary">Save</button>
+  <a type="button" class="btn btn-secondary" routerLink="/courses">Cancel</a>
+</div>

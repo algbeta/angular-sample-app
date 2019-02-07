@@ -5,7 +5,7 @@
       class="col-11"
     ></app-course-description>
     <div class="col-1">
-      <app-button label="Edit" class="mb-1 course-btn"></app-button>
+      <a routerLink="/course-edit/{{course.id}}" class="mb-1 course-btn btn">Edit</a>
       <app-button
         label="Delete"
         class="course-btn delete-course-btn"

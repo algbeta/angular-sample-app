@@ -1,4 +1,7 @@
-<div class="container-fluid">
+<div
+  class="container-fluid"
+  *ngIf="(courses$ | async) as courses"
+>
   <app-menu (setSearchPhrase)="setSearchPhrase($event)"></app-menu>
   <app-modal #modal (handlerOnConfirm)="deleteCourse($event)"></app-modal>
   <app-course
