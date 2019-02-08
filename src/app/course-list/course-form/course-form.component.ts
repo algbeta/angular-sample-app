@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import Course from 'src/app/models/course';
 
 @Component({
@@ -8,6 +8,8 @@ import Course from 'src/app/models/course';
 })
 export class CourseFormComponent implements OnInit {
   @Input() course: Course;
+  @Output() clickHandler: EventEmitter<Course> = new EventEmitter<Course>();
+
   constructor() {}
 
   ngOnInit() {

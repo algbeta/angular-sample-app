@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { CourseService } from 'src/app/services/course.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import Course from 'src/app/models/course';
 
@@ -16,12 +16,23 @@ export class EditCourseFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: CourseService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.course$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        this.service.getItemById(params.get('id')))
+        this.service.getItemById(params.get('id'))
+      )
     );
+  }
+
+  updateCourse(course: Course) {
+    if(this.service.updateItem(course)) {
+      this.router.navigate(['/courses']);
+    }
+
+    /* this.course$
+      .pipe(take(1))
+      .subscribe((value: Course) => this.service.updateItem(value)); */
   }
 }
