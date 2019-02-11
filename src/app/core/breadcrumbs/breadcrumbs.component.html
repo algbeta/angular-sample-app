@@ -1,5 +1,10 @@
 <nav aria-label="breadcrumb" *ngIf="authService.isAuthenticated()">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">Courses</li>
-    </ol>
+     <li *ngFor="let breadcrumb of breadcrumbs"
+        class="breadcrumb-item">
+      <a routerLink="{{breadcrumb.url}}">
+        {{ breadcrumb.label }}
+      </a>
+    </li>
+  </ol>
   </nav>

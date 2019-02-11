@@ -12,7 +12,6 @@ import { ModalComponent } from './modal/modal.component';
 import { CourseFormComponent } from './course-form/course-form.component';
 import { EditCourseFormComponent } from './edit-course-form/edit-course-form.component';
 import { RouterModule } from '@angular/router';
-import { CoursesRoutingModule } from './courses-routing.module';
 
 @NgModule({
   declarations: [
@@ -30,8 +29,7 @@ import { CoursesRoutingModule } from './courses-routing.module';
     CommonModule,
     SharedModule,
     FormsModule,
-    RouterModule,
-    CoursesRoutingModule
+    RouterModule
   ],
   exports: [
     CoursesComponent,
