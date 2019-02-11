@@ -6,12 +6,14 @@ import { CoreModule } from './core/core.module';
 import { CoursesComponent } from './course-list/courses/courses.component';
 import { CourseFormComponent } from './course-list/course-form/course-form.component';
 import { EditCourseFormComponent } from './course-list/edit-course-form/edit-course-form.component';
+import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'courses', pathMatch: 'full' },
   {
     path: 'courses',
-    component: CoursesComponent
+    component: CoursesComponent,
+    canActivate: [AuthGuard]
     /*children: [
       { path: '', component: CoursesComponent, data: [{ breadcrumb: 'Courses'}] },
       { path: 'new', component: CourseFormComponent, data: [{ breadcrumb: 'New Course'}] },
@@ -21,12 +23,14 @@ const routes: Routes = [
   {
     path: 'courses/new',
     component: CourseFormComponent,
-    data: { breadcrumb: 'New Course' }
+    data: { breadcrumb: 'New Course' },
+    canActivate: [AuthGuard]
   },
   {
     path: 'courses/:id',
     component: EditCourseFormComponent,
-    data: { breadcrumb: 'Edit Course' }
+    data: { breadcrumb: 'Edit Course' },
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',
