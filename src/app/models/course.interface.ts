@@ -1,8 +1,8 @@
 interface ICourse {
   readonly id: string;
-  title: string;
-  creationDate: Date;
-  duration: number;
+  name: string;
+  date: Date;
+  length: number;
   description?: string; 
 }
 

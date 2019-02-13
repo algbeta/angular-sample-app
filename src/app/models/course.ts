@@ -2,9 +2,9 @@ import ICourse from './course.interface'
 
 class Course implements ICourse {
   id: string;
-  title: string;
-  creationDate: Date;
-  duration: number;
+  name: string;
+  date: Date;
+  length: number;
   topRated: boolean;
   description?: string; 
 }
