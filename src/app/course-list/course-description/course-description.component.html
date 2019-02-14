@@ -3,7 +3,7 @@
     {{ course.name | uppercase }}
     <span *ngIf="course.topRated">&#x2605;</span>
   </h5>
-  <div class="col-2 course-creation-date">{{ course.date | date: 'dd.MM.yyyy' }}</div>
+  <div class="col-2 course-creation-date">{{ course.creationDate | date: 'dd.MM.yyyy' }}</div>
   <div class="col-2 course-duration">{{ course.length | minutesToHours }}</div>
   <p class="card-text col-12 course-description">{{ course.description }}</p>
 </div>

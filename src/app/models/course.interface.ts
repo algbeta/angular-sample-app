@@ -1,7 +1,7 @@
 interface ICourse {
   readonly id: string;
   name: string;
-  date: Date;
+  date: string;
   length: number;
   description?: string; 
 }

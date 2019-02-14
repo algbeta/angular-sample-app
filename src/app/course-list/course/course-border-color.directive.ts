@@ -10,8 +10,8 @@ export class CourseBorderColorDirective {
 
   @Input() set appCourseBorderColor(value: Course) {
     this._appCourseBorderColor = value;
-    if (!this._appCourseBorderColor || !this._appCourseBorderColor.date) return;
-    const timeDiff = Date.now() - this._appCourseBorderColor.date.getTime();
+    if (!this._appCourseBorderColor || !this._appCourseBorderColor.creationDate) return;
+    const timeDiff = Date.now() - this._appCourseBorderColor.creationDate.getTime();
     const diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
     if (diffDays <= 14) {
