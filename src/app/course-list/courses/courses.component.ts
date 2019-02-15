@@ -15,6 +15,7 @@ export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
   selectedCourseId: string;
   searchPhrase: string = '';
+  loadedPages: number = 0;
   constructor(private courseService: CourseService, private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -25,7 +26,7 @@ export class CoursesComponent implements OnInit {
     this.courses$ = this.route.paramMap.pipe(
       switchMap(params => {
         this.selectedCourseId = params.get('id');
-        return this.courseService.getList();
+        return this.courseService.getList(this.loadedPages);
       })
     );
   }

@@ -9,11 +9,15 @@ import Course from '../models/course';
 })
 export class CourseService {
   private courseUrl = 'http://localhost:3004/courses';
-  private courses
+  private quantityPerRequest: number = 3;
+  private courses;
   constructor(private http: HttpClient) {}
 
-  getList(): Observable<Course[]> {
-    return this.http.get<Course[]>(this.courseUrl);
+  getList(start?: number): Observable<Course[]> {
+    const url: string = start || start === 0
+      ? `${this.courseUrl}\?start=${start}&count=${this.quantityPerRequest}`
+      : this.courseUrl;
+    return this.http.get<Course[]>(url);
   }
 
   createItem(course: Course): Observable<Course> {
