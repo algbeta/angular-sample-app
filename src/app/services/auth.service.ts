@@ -39,20 +39,9 @@ export class AuthService {
   }
 
   private loadUserInfo() {
-    const token = this.localStorageService.getItemFromLocalStorage('token');
-    this.http
-      .post<any>(`${this.authUrl}/userinfo`, '', {
-        headers: {
-          Authorization: token
-        }
-      })
-      .subscribe((data) => {
-        data &&
-          this.localStorageService.setItemInLocalStorage(
-            'user',
-            data
-          );
-      });
+    this.http.post<any>(`${this.authUrl}/userinfo`, '').subscribe((data) => {
+      data && this.localStorageService.setItemInLocalStorage('user', data);
+    });
   }
 
   getUserInfo(): string {

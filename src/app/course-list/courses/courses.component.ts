@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Course from '../../models/course';
 import { CourseService } from '../../services/course.service';
 import { Observable } from 'rxjs';
-import { switchMap, merge } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
