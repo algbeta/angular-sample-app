@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import Course from '../../models/course';
 import { CourseService } from '../../services/course.service';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, merge } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -37,11 +37,12 @@ export class CoursesComponent implements OnInit {
     });
   }
 
-  setSearchPhrase(phrase) {
+  setSearchPhrase(phrase: string) {
     this.searchPhrase = phrase;
   }
 
   loadMore() {
-    console.log('Load more is called');
+    this.loadedPages++;
+    this.courses$ = this.courseService.getList(this.loadedPages);
   }
 }

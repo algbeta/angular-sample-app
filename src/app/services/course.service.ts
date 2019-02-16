@@ -15,7 +15,7 @@ export class CourseService {
 
   getList(start?: number): Observable<Course[]> {
     const url: string = start || start === 0
-      ? `${this.courseUrl}\?start=${start}&count=${this.quantityPerRequest}`
+      ? `${this.courseUrl}\?start=${0}&count=${this.quantityPerRequest*(start + 1)}`
       : this.courseUrl;
     return this.http.get<Course[]>(url);
   }
