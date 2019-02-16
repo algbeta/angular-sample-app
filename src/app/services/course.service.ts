@@ -40,16 +40,8 @@ export class CourseService {
     );
   }
 
-  removeItem(id: string): Observable<Course[]> {
-    const index = this.courses.findIndex((item) => item.id === id);
-    const copy = [...this.courses];
-    if (index !== -1) {
-      copy.splice(index, 1);
-      this.courses = copy;
-      return of(this.courses);
-    }
-
-    return of(this.courses);
+  removeItem(id: string): Observable<{}> {
+    return this.http.delete(`${this.courseUrl}/${id}`);
   }
 
   updateItem(course: Course): Observable<Boolean> {
