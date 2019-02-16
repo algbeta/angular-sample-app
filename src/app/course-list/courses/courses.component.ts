@@ -39,6 +39,7 @@ export class CoursesComponent implements OnInit {
 
   setSearchPhrase(phrase: string) {
     this.searchPhrase = phrase;
+    this.searchPhrase && (this.courses$ = this.courseService.search(this.searchPhrase));
   }
 
   loadMore() {

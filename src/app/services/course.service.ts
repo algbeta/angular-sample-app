@@ -14,9 +14,11 @@ export class CourseService {
   constructor(private http: HttpClient) {}
 
   getList(start?: number): Observable<Course[]> {
-    const url: string = start || start === 0
-      ? `${this.courseUrl}\?start=${0}&count=${this.quantityPerRequest*(start + 1)}`
-      : this.courseUrl;
+    const url: string =
+      start || start === 0
+        ? `${this.courseUrl}\?start=${0}&count=${this.quantityPerRequest *
+            (start + 1)}`
+        : this.courseUrl;
     return this.http.get<Course[]>(url);
   }
 
@@ -29,6 +31,12 @@ export class CourseService {
   getItemById(id: string): Observable<Course> {
     return this.getList().pipe(
       map((courses: Course[]) => courses.find((course) => course.id === id))
+    );
+  }
+
+  search(searchPhrase: string) {
+    return this.http.get<Course[]>(
+      `${this.courseUrl}?textFragment=${searchPhrase}`
     );
   }
 
