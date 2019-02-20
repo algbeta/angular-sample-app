@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import Course from '../models/course';
 
 @Injectable({
@@ -43,13 +44,14 @@ export class CourseService {
   }
 
   createItem(course: Course): Observable<Course> {
-    course.id = `${course.title}-${this.courses.length}`;
-    this.courses.push(course);
-    return of(course);
+    return this.http.post<Course>(this.courseUrl, course);
   }
 
   getItemById(id: string): Observable<Course> {
-    return this.getList().pipe(map((courses: Course[]) => courses.find(course => course.id === id)))
+    const item = this.getList().pipe(
+      map((courses: Course[]) => courses.find((course) => course.id === id))
+    );
+    return item;
   }
 
   removeItem(id: string): Observable<Course[]> {
