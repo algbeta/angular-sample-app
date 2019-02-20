@@ -1,14 +1,31 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private localStorageService: LocalStorageService) {}
+  private authUrl = 'http://localhost:3004/auth';
 
-  login(user: any): boolean {
-    return this.localStorageService.setItemInLocalStorage('user', user);
+  constructor(
+    private localStorageService: LocalStorageService,
+    private http: HttpClient
+  ) {}
+
+  login(user: any, successCallback, errorCallback) {
+    return this.http
+      .post<any>(`${this.authUrl}/login`, user, {
+        headers: {}
+      })
+      .subscribe(
+        (data) => {
+          this.localStorageService.setItemInLocalStorage('token', data.token);
+          successCallback();
+          this.loadUserInfo();
+        },
+        (error) => errorCallback()
+      );
   }
 
   logout(): void {
@@ -17,7 +34,14 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const userData = this.localStorageService.getItemFromLocalStorage('user');
-    return !!userData;
+    const token = this.localStorageService.getItemFromLocalStorage('token');
+    return !!userData || !!token;
+  }
+
+  private loadUserInfo() {
+    this.http.post<any>(`${this.authUrl}/userinfo`, '').subscribe((data) => {
+      data && this.localStorageService.setItemInLocalStorage('user', data);
+    });
   }
 
   getUserInfo(): string {
