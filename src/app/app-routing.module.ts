@@ -4,9 +4,9 @@ import { LoginPageComponent } from './login/login-page/login-page.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import { CoreModule } from './core/core.module';
 import { CoursesComponent } from './course-list/courses/courses.component';
-import { CourseFormComponent } from './course-list/course-form/course-form.component';
 import { EditCourseFormComponent } from './course-list/edit-course-form/edit-course-form.component';
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
+import { NewCourseFormComponent } from './course-list/new-course-form/new-course-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'courses', pathMatch: 'full' },
@@ -22,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'courses/new',
-    component: CourseFormComponent,
+    component: NewCourseFormComponent,
     data: { breadcrumb: 'New Course' },
     canActivate: [AuthGuard]
   },

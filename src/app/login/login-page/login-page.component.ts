@@ -15,9 +15,20 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {}
 
   authenticate() {
-    if(this.authService.login({ login: this.login, password: this.password })) {
+    this.authService.login(
+      { login: this.login, password: this.password },
+      () => {
+        this.router.navigate(['/courses']);
+      },
+      () => {
+        alert('Problem with login!');
+      }
+    );
+    /*) {
       this.router.navigate(['/courses']);
-    }
-    console.log('logged in successfully');
+    } else {
+      alert('Problem with login!');
+      console.log('logged in successfully');
+    }*/
   }
 }

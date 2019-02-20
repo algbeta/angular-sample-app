@@ -15,6 +15,7 @@ export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
   selectedCourseId: string;
   searchPhrase: string = '';
+  loadedPages: number = 0;
   constructor(private courseService: CourseService, private route: ActivatedRoute) {}
 
   ngOnInit() {
@@ -25,22 +26,23 @@ export class CoursesComponent implements OnInit {
     this.courses$ = this.route.paramMap.pipe(
       switchMap(params => {
         this.selectedCourseId = params.get('id');
-        return this.courseService.getList();
+        return this.courseService.getList(this.loadedPages);
       })
     );
   }
 
   deleteCourse(courseId: string): void {
-    this.courseService.removeItem(courseId).subscribe((data: Course[]) => {
-      this.courses = data;
-    });
+    this.courseService.removeItem(courseId).subscribe();
+    this.getCourses();
   }
 
-  setSearchPhrase(phrase) {
+  setSearchPhrase(phrase: string) {
     this.searchPhrase = phrase;
+    this.searchPhrase && (this.courses$ = this.courseService.search(this.searchPhrase));
   }
 
   loadMore() {
-    console.log('Load more is called');
+    this.loadedPages++;
+    this.courses$ = this.courseService.getList(this.loadedPages);
   }
 }
