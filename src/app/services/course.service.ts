@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, timer } from 'rxjs';
+import { map, debounce, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import Course from '../models/course';
 
@@ -33,7 +33,14 @@ export class CourseService {
     return item;
   }
 
-  search(searchPhrase: string) {
+  search(searchPhrase: Observable<string>) {
+   return (searchPhrase.pipe(debounce(() => timer(500))).pipe(distinctUntilChanged()).pipe(switchMap(value => {
+     const values = this.searchCourses(value);
+     return of(values);
+    })));
+  }
+
+  searchCourses(searchPhrase: string) {
     return this.http.get<Course[]>(
       `${this.courseUrl}?textFragment=${searchPhrase}`
     );

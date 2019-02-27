@@ -8,7 +8,7 @@ import Course from 'src/app/models/course';
 })
 export class CourseFormComponent implements OnInit {
   @Input() course: Course;
-  @Output() clickHandler: EventEmitter<Course> = new EventEmitter<Course>();
+  @Output() click: EventEmitter<Course> = new EventEmitter<Course>();
 
   constructor() {}
 
