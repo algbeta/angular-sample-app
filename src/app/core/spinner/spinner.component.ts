@@ -8,12 +8,13 @@ import { LoadingService } from 'src/app/services/loading.service';
   styleUrls: ['./spinner.component.scss']
 })
 export class SpinnerComponent implements OnInit {
-  isActive$: Observable<boolean>;
+  isActive: boolean;
   constructor(private loadingService: LoadingService) {
-    this.isActive$ = this.loadingService.status;
-   }
-
-  ngOnInit() {
+    this.loadingService.status.subscribe((value) => {
+      debugger;
+      this.isActive = value;
+    });
   }
 
+  ngOnInit() {}
 }

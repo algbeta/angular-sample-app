@@ -13,7 +13,6 @@ import { CourseFormComponent } from './course-form/course-form.component';
 import { EditCourseFormComponent } from './edit-course-form/edit-course-form.component';
 import { RouterModule } from '@angular/router';
 import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
-import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -32,8 +31,7 @@ import { CoreModule } from '../core/core.module';
     CommonModule,
     SharedModule,
     FormsModule,
-    RouterModule,
-    CoreModule
+    RouterModule
   ],
   exports: [
     CoursesComponent,
