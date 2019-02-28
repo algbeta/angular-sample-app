@@ -14,9 +14,12 @@ export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
   searchPhrase$: Subject<string> = new Subject<string>();
   loadedPages: number = 0;
-  constructor(private courseService: CourseService, private route: ActivatedRoute) {
-    this.courseService.search(this.searchPhrase$).subscribe(courses$ => {
-      this.courses$ = courses$
+  constructor(
+    private courseService: CourseService,
+    private route: ActivatedRoute
+  ) {
+    this.courseService.search(this.searchPhrase$).subscribe((courses$) => {
+      this.courses$ = courses$;
     });
   }
 
@@ -38,7 +41,9 @@ export class CoursesComponent implements OnInit {
   }
 
   setSearchPhrase(phrase: string) {
-    this.searchPhrase$.next(phrase);
+    if (phrase && phrase.length && phrase.length > 3) {
+      this.searchPhrase$.next(phrase);
+    }
   }
 
   loadMore() {

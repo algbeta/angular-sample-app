@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  constructor(public authService: AuthService, private router: Router) {}
+  userData: string;
+  isAuthenticated: Observable<boolean>;
+
+  constructor(public authService: AuthService, private router: Router) {
+    authService
+      .getUserInfo()
+      .subscribe((userData) => (this.userData = userData));
+
+    this.isAuthenticated = authService.isAuthentificated();
+  }
 
   ngOnInit() {}
 

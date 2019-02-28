@@ -7,6 +7,7 @@ import {
   RouterLink
 } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -15,11 +16,15 @@ import { filter } from 'rxjs/operators';
 })
 export class BreadcrumbsComponent implements OnInit {
   public breadcrumbs: Breadcrumb[];
+  private isLoggedIn: Observable<boolean>;
+  
   constructor(
     public authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    this.isLoggedIn = this.authService.isAuthentificated();
+  }
 
   ngOnInit() {
     let breadcrumb: Breadcrumb = {

@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { of, Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private authUrl = 'http://localhost:3004/auth';
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasTokenAndInfo());
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -30,26 +32,32 @@ export class AuthService {
 
   logout(): void {
     this.localStorageService.removeItemFromLocalStorage('user');
+    this.isLoggedInSubject.next(false);
   }
 
-  isAuthenticated(): boolean {
+  isAuthentificated() {
+    return this.isLoggedInSubject.asObservable();
+  }
+
+  hasTokenAndInfo(): boolean {
     const userData = this.localStorageService.getItemFromLocalStorage('user');
     const token = this.localStorageService.getItemFromLocalStorage('token');
-    return !!userData || !!token;
+    return !!userData && !!token;
   }
 
   private loadUserInfo() {
     this.http.post<any>(`${this.authUrl}/userinfo`, '').subscribe((data) => {
       data && this.localStorageService.setItemInLocalStorage('user', data);
+      this.isLoggedInSubject.next(true);
     });
   }
 
-  getUserInfo(): string {
+  getUserInfo(): Observable<string> {
     const userData = this.localStorageService.getItemFromLocalStorage('user');
     if (userData) {
-      return userData.login;
+      return of(userData.login);
     }
 
-    return '';
+    return of('');
   }
 }
