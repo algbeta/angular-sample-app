@@ -6,20 +6,23 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component'
 import { SharedModule } from '../shared/shared.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { RouterModule } from '@angular/router';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     BreadcrumbsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SpinnerComponent
   ],
   imports: [CommonModule, SharedModule, RouterModule],
   exports: [
     HeaderComponent,
     FooterComponent,
     BreadcrumbsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SpinnerComponent
   ]
 })
 export class CoreModule {}
