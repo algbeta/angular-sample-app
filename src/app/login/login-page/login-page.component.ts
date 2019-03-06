@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
 import { Login } from '../../actions/auth.actions';
 import { Store } from '@ngrx/store';
 import { State } from '../../reducers'
@@ -14,8 +12,6 @@ export class LoginPageComponent implements OnInit {
   login: string = '';
   password: string = '';
   constructor(
-    // private authService: AuthService,
-    // private router: Router,
     private store: Store<State>
   ) {}
 
@@ -28,15 +24,5 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.store.dispatch(new Login(payload));
-
-    /*this.authService.login(
-      { login: this.login, password: this.password },
-      () => {
-        this.router.navigate(['/courses']);
-      },
-      () => {
-        alert('Problem with login!');
-      }
-    );*/
   }
 }

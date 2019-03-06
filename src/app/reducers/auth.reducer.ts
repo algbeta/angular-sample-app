@@ -26,7 +26,6 @@ export function reducer(state: State = defaultState, action: Action): State {
     case ActionTypes.LoginSuccess: {
       return {
         ...state,
-        isAuthenticated: true,
         user: {
           ...state.user,
           token: (<LoginSuccess>action).token
@@ -36,11 +35,15 @@ export function reducer(state: State = defaultState, action: Action): State {
     case ActionTypes.LoadUserInfoSuccess: {
       return {
         ...state,
+        isAuthenticated: true,
         user: {
           ...state.user,
           username: (<LoadUserInfoSuccess>action).username
         }
       };
+    }
+    case ActionTypes.Logout: {
+      return defaultState;
     }
     default:
       return state;

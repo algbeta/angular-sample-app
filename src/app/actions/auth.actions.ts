@@ -6,6 +6,7 @@ export enum ActionTypes {
   Logout = 'Logout',
   LoadUserInfo = 'LoadUserInfo',
   LoadUserInfoSuccess = 'LoadUserInfoSuccess',
+  LoadUserInfoFailure = 'LoadUserInfoFailure',
   LoginSuccess = 'LoginSuccess',
   LoginFailure = 'LoginFailure'
 }

@@ -5,7 +5,7 @@
       <li
         class="nav-item active"
         *ngIf="
-          (isAuthenticated | async);
+          (isAuthenticated$ | async);
           then authorizedMessage;
           else loginBlock
         "
@@ -24,7 +24,7 @@
 
 <ng-template #authorizedMessage
   ><span class="nav-link user-login"
-    >Hello, {{ userData }}!</span
+    >Hello, {{ userData$ | async }}!</span
   ></ng-template
 >
 <ng-template #loginBlock>
