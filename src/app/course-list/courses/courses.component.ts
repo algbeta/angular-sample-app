@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import Course from '../../models/course';
 import { CourseService } from '../../services/course.service';
-import { Subject, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { State } from '../../reducers';
+import { LoadCourses, LoadMoreCourses } from '../../actions/course.actions';
 
 @Component({
   selector: 'app-courses',
@@ -12,25 +15,26 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
-  searchPhrase$: Subject<string> = new Subject<string>();
-  loadedPages: number = 0;
+
   constructor(
     private courseService: CourseService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<State>
   ) {
-    this.courseService.search(this.searchPhrase$).subscribe((courses$) => {
+    this.courses$ = this.store.pipe(select('courses', 'items'));
+    /*this.courseService.search(this.searchPhrase$).subscribe((courses$) => {
       this.courses$ = courses$;
-    });
+    });*/
   }
 
   ngOnInit() {
-    this.getCourses();
+    this.store.dispatch(new LoadCourses());
   }
 
   getCourses() {
-    this.courses$ = this.route.paramMap.pipe(
-      switchMap(() => {
-        return this.courseService.getList(this.loadedPages);
+    this.route.paramMap.pipe(
+      tap(() => {
+        this.store.dispatch(new LoadCourses());
       })
     );
   }
@@ -40,14 +44,14 @@ export class CoursesComponent implements OnInit {
     this.getCourses();
   }
 
-  setSearchPhrase(phrase: string) {
+  /*setSearchPhrase(phrase: string) {
     if (phrase && phrase.length && phrase.length > 3) {
       this.searchPhrase$.next(phrase);
     }
-  }
+  }*/
 
   loadMore() {
-    this.loadedPages++;
-    this.courses$ = this.courseService.getList(this.loadedPages);
+    this.store.dispatch(new LoadMoreCourses());
+    //this.courses$ = this.courseService.getList(0, 3);
   }
 }

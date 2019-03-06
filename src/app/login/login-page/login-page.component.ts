@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Login } from '../../actions/auth.actions';
 import { Store } from '@ngrx/store';
-import { State } from '../../reducers'
+import { State } from '../../reducers';
 
 @Component({
   selector: 'app-login-page',
@@ -11,9 +11,7 @@ import { State } from '../../reducers'
 export class LoginPageComponent implements OnInit {
   login: string = '';
   password: string = '';
-  constructor(
-    private store: Store<State>
-  ) {}
+  constructor(private store: Store<State>) {}
 
   ngOnInit() {}
 
@@ -21,7 +19,7 @@ export class LoginPageComponent implements OnInit {
     const payload = {
       login: this.login,
       password: this.password
-    }
+    };
 
     this.store.dispatch(new Login(payload));
   }

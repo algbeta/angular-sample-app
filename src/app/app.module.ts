@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { CourseListModule } from './course-list/course-list.module';
 import { LoginModule } from './login/login.module';
 import { AuthEffects } from './effects/auth.effects';
+import { CourseEffects } from './effects/course.effects';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/token.iterceptor';
 import { LoadingInterceptor } from './services/loading.iterceptor';
@@ -28,8 +29,11 @@ import { EffectsModule } from '@ngrx/effects';
     CourseListModule,
     LoginModule,
     StoreModule.forRoot(reducers, { metaReducers }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AuthEffects])
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
+    EffectsModule.forRoot([AuthEffects, CourseEffects])
   ],
   providers: [
     {

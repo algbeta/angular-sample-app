@@ -9,14 +9,13 @@ import Course from '../models/course';
 })
 export class CourseService {
   private courseUrl = 'http://localhost:3004/courses';
-  private quantityPerRequest: number = 3;
   private courses;
   constructor(private http: HttpClient) {}
 
-  getList(start?: number): Observable<Course[]> {
+  getList(start: number, quantityPerRequest: number): Observable<Course[]> {
     const url: string =
       start || start === 0
-        ? `${this.courseUrl}\?start=${0}&count=${this.quantityPerRequest *
+        ? `${this.courseUrl}\?start=${0}&count=${quantityPerRequest *
             (start + 1)}`
         : this.courseUrl;
     return this.http.get<Course[]>(url);
@@ -27,7 +26,7 @@ export class CourseService {
   }
 
   getItemById(id: string): Observable<Course> {
-    const item = this.getList().pipe(
+    const item = this.getList(0, 0).pipe(
       map((courses: Course[]) => courses.find((course) => course.id === id))
     );
     return item;
