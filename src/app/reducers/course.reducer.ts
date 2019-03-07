@@ -6,7 +6,7 @@ import {
   SearchCoursesSuccess,
   DeleteCourseSuccess
 } from '../actions/course.actions';
-import { Action, createSelector } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import Course from '../models/course';
 
 export interface State {
