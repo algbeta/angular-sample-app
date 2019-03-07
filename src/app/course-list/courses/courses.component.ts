@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import Course from '../../models/course';
 import { CourseService } from '../../services/course.service';
-import { Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
@@ -11,12 +11,17 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  courses: Course[];
   courses$: Observable<Course[]>;
-  selectedCourseId: string;
-  searchPhrase: string = '';
+  searchPhrase$: Subject<string> = new Subject<string>();
   loadedPages: number = 0;
-  constructor(private courseService: CourseService, private route: ActivatedRoute) {}
+  constructor(
+    private courseService: CourseService,
+    private route: ActivatedRoute
+  ) {
+    this.courseService.search(this.searchPhrase$).subscribe((courses$) => {
+      this.courses$ = courses$;
+    });
+  }
 
   ngOnInit() {
     this.getCourses();
@@ -24,8 +29,7 @@ export class CoursesComponent implements OnInit {
 
   getCourses() {
     this.courses$ = this.route.paramMap.pipe(
-      switchMap(params => {
-        this.selectedCourseId = params.get('id');
+      switchMap(() => {
         return this.courseService.getList(this.loadedPages);
       })
     );
@@ -37,8 +41,9 @@ export class CoursesComponent implements OnInit {
   }
 
   setSearchPhrase(phrase: string) {
-    this.searchPhrase = phrase;
-    this.searchPhrase && (this.courses$ = this.courseService.search(this.searchPhrase));
+    if (phrase && phrase.length && phrase.length > 3) {
+      this.searchPhrase$.next(phrase);
+    }
   }
 
   loadMore() {

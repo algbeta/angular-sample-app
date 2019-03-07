@@ -2,7 +2,7 @@
   class="container-fluid"
   *ngIf="(courses$ | async) as courses"
 >
-  <app-menu (setSearchPhrase)="setSearchPhrase($event)"></app-menu>
+  <app-menu (setSearchPhrase)="setSearchPhrase($event)" [searchPhrase]="searchPhrase"></app-menu>
   <app-modal #modal (handlerOnConfirm)="deleteCourse($event)"></app-modal>
   <app-course
     *ngFor="

@@ -1,4 +1,4 @@
-<nav aria-label="breadcrumb" *ngIf="authService.isAuthenticated()">
+<nav aria-label="breadcrumb" *ngIf="isLoggedIn">
     <ol class="breadcrumb">
      <li *ngFor="let breadcrumb of breadcrumbs"
         class="breadcrumb-item">

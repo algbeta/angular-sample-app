@@ -1,6 +1,7 @@
 <div class="row p-3">
   <app-search
     (setSearchPhrase)="setSearchPhraseHandler($event)"
+    [searchPhrase]="searchPhrase"
   ></app-search>
   <a routerLink="/courses/new" class="ml-auto">Add course</a>
 </div>

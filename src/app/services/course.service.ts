@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of, timer } from 'rxjs';
+import { map, debounce, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import Course from '../models/course';
 
 @Injectable({
@@ -23,18 +23,24 @@ export class CourseService {
   }
 
   createItem(course: Course): Observable<Course> {
-    course.id = `${course.name}-${this.courses.length}`;
-    this.courses.push(course);
-    return of(course);
+    return this.http.post<Course>(this.courseUrl, course);
   }
 
   getItemById(id: string): Observable<Course> {
-    return this.getList().pipe(
+    const item = this.getList().pipe(
       map((courses: Course[]) => courses.find((course) => course.id === id))
     );
+    return item;
   }
 
-  search(searchPhrase: string) {
+  search(searchPhrase: Observable<string>) {
+   return (searchPhrase.pipe(debounce(() => timer(500))).pipe(distinctUntilChanged()).pipe(switchMap(value => {
+     const values = this.searchCourses(value);
+     return of(values);
+    })));
+  }
+
+  searchCourses(searchPhrase: string) {
     return this.http.get<Course[]>(
       `${this.courseUrl}?textFragment=${searchPhrase}`
     );
