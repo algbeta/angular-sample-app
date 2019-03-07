@@ -23,13 +23,6 @@ const defaultState: State = {
   query: ''
 };
 
-export const getItems = (state: State) => state.items;
-
-export const getItemById = (id: String) => createSelector(
-  getItems,
-  (items) => items.find(item => item.id === id)
-)
-
 export function reducer(state: State = defaultState, action: Action): State {
   switch (action.type) {
     case ActionTypes.LoadCoursesSuccess: {

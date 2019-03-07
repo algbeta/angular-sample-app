@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import Course from '../../models/course';
-import { CourseService } from '../../services/course.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
@@ -13,14 +12,15 @@ import { LoadCourses, LoadMoreCourses } from '../../actions/course.actions';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss']
 })
-export class CoursesComponent {
+export class CoursesComponent implements OnInit {
   courses$: Observable<Course[]>;
 
-  constructor(
-    private route: ActivatedRoute,
-    private store: Store<State>
-  ) {
+  constructor(private route: ActivatedRoute, private store: Store<State>) {
     this.courses$ = this.store.pipe(select('courses', 'items'));
+  }
+
+  ngOnInit() {
+    this.store.dispatch(new LoadCourses());
   }
 
   getCourses() {

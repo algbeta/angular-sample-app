@@ -5,13 +5,11 @@ import {
   map,
   catchError,
   withLatestFrom,
-  tap,
-  startWith,
   mapTo,
-  debounce,
   debounceTime,
   filter,
-  distinctUntilChanged
+  distinctUntilChanged,
+  concatMap
 } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { CourseService } from '../services/course.service';
@@ -30,6 +28,7 @@ import {
   DeleteCourse,
   DeleteCourseSuccess
 } from '../actions/course.actions';
+import Course from '../models/course';
 
 @Injectable()
 export class CourseEffects {
@@ -58,8 +57,20 @@ export class CourseEffects {
 
   @Effect() loadMoreCourses$: Observable<Action> = this.actions$.pipe(
     ofType<LoadMoreCourses>(ActionTypes.LoadMoreCourses),
-    startWith(new AdjustLoaded(1)),
-    mapTo(new LoadCourses())
+    withLatestFrom(this.store$.select('courses', 'loaded')),
+    withLatestFrom(this.store$.select('courses', 'quantityPerRequest')),
+    switchMap(([action, quantityPerRequest], loaded) => {
+      return this.coursesService.getList(loaded++, quantityPerRequest).pipe(
+        concatMap((list: Course[]) => [
+          new LoadCoursesSuccess(list),
+          new AdjustLoaded(1)
+        ]),
+        catchError((err) => {
+          console.log(err);
+          return of(new LoadCoursesFailure());
+        })
+      );
+    })
   );
 
   @Effect() SearchCourses$: Observable<Action> = this.actions$.pipe(
