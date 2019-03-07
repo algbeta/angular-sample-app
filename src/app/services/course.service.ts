@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, timer } from 'rxjs';
-import { map, debounce, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import Course from '../models/course';
 
@@ -26,17 +25,7 @@ export class CourseService {
   }
 
   getItemById(id: string): Observable<Course> {
-    const item = this.getList(0, 0).pipe(
-      map((courses: Course[]) => courses.find((course) => course.id === id))
-    );
-    return item;
-  }
-
-  search(searchPhrase: Observable<string>) {
-   return (searchPhrase.pipe(debounce(() => timer(500))).pipe(distinctUntilChanged()).pipe(switchMap(value => {
-     const values = this.searchCourses(value);
-     return of(values);
-    })));
+    return this.http.get<Course>(`${this.courseUrl}/${id}`);
   }
 
   searchCourses(searchPhrase: string) {

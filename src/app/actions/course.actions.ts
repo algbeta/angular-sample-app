@@ -6,7 +6,12 @@ export enum ActionTypes {
   LoadCoursesSuccess = 'LoadCoursesSuccess',
   LoadCoursesFailure = 'LoadCoursesFailure',
   LoadMoreCourses = 'LoadMoreCourses',
-  AdjustLoaded = 'AdjustLoaded'
+  AdjustLoaded = 'AdjustLoaded',
+  SearchCourses = 'SearchCourses',
+  SearchCoursesSuccess = 'SearchCoursesSuccess',
+  SearchCoursesFailure = 'SearchCoursesFailure',
+  DeleteCourse = 'DeleteCourse',
+  DeleteCourseSuccess = 'DeleteCourseSuccess'
 }
 
 export class LoadCourses implements Action {
@@ -31,9 +36,38 @@ export class AdjustLoaded implements Action {
   constructor(public value: number) {}
 }
 
+export class SearchCourses implements Action {
+  readonly type = ActionTypes.SearchCourses;
+  constructor(public query: string) {}
+}
+
+export class SearchCoursesSuccess implements Action {
+  readonly type = ActionTypes.SearchCoursesSuccess;
+  constructor(public courses: Course[]) {}
+}
+
+export class SearchCoursesFailure implements Action {
+  readonly type = ActionTypes.SearchCoursesFailure;
+}
+
+export class DeleteCourse implements Action {
+  readonly type = ActionTypes.DeleteCourse;
+  constructor(public courseId: string) {}
+}
+
+export class DeleteCourseSuccess implements Action {
+  readonly type = ActionTypes.DeleteCourseSuccess;
+  constructor(public courseId: string) {}
+}
+
 export type ActionsUnion =
   | LoadCourses
   | LoadCoursesSuccess
   | LoadCoursesFailure
   | LoadMoreCourses
-  | AdjustLoaded;
+  | AdjustLoaded
+  | SearchCourses
+  | SearchCoursesSuccess
+  | SearchCoursesFailure
+  | DeleteCourse
+  | DeleteCourseSuccess;

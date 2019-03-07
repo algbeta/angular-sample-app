@@ -1,9 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { switchMap, map, catchError, withLatestFrom, tap } from 'rxjs/operators';
+import {
+  switchMap,
+  map,
+  catchError,
+  withLatestFrom,
+  tap,
+  startWith,
+  mapTo,
+  debounce,
+  debounceTime,
+  filter,
+  distinctUntilChanged
+} from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { CourseService } from '../services/course.service';
-import { State } from '../reducers'
+import { State } from '../reducers';
 import { Action, Store } from '@ngrx/store';
 import {
   ActionTypes,
@@ -11,7 +23,12 @@ import {
   LoadCoursesSuccess,
   LoadCoursesFailure,
   LoadMoreCourses,
-  AdjustLoaded
+  AdjustLoaded,
+  SearchCourses,
+  SearchCoursesSuccess,
+  SearchCoursesFailure,
+  DeleteCourse,
+  DeleteCourseSuccess
 } from '../actions/course.actions';
 
 @Injectable()
@@ -26,7 +43,7 @@ export class CourseEffects {
     ofType<LoadCourses>(ActionTypes.LoadCourses),
     withLatestFrom(this.store$.select('courses', 'loaded')),
     withLatestFrom(this.store$.select('courses', 'quantityPerRequest')),
-    switchMap( ([action, quantityPerRequest], loaded) => {
+    switchMap(([action, quantityPerRequest], loaded) => {
       return this.coursesService.getList(loaded, quantityPerRequest).pipe(
         map((list) => {
           return new LoadCoursesSuccess(list);
@@ -39,14 +56,42 @@ export class CourseEffects {
     })
   );
 
-  @Effect() loadMoreCourses: Observable<Action> = this.actions$.pipe(
+  @Effect() loadMoreCourses$: Observable<Action> = this.actions$.pipe(
     ofType<LoadMoreCourses>(ActionTypes.LoadMoreCourses),
-    tap(() => {
-      this.store$.dispatch(new AdjustLoaded(1));
-    }),
-    tap(() => {
-      return this.store$.dispatch(new LoadCourses());
-    })
-  )
+    startWith(new AdjustLoaded(1)),
+    mapTo(new LoadCourses())
+  );
 
+  @Effect() SearchCourses$: Observable<Action> = this.actions$.pipe(
+    ofType<SearchCourses>(ActionTypes.SearchCourses),
+    withLatestFrom(this.store$.select('courses', 'query')),
+    filter(([action, query]) => query.length >= 3),
+    debounceTime(500),
+    distinctUntilChanged(),
+    switchMap(([action, query]) => {
+      return this.coursesService.searchCourses(query).pipe(
+        map((list) => {
+          return new SearchCoursesSuccess(list);
+        }),
+        catchError((err) => {
+          console.log(err);
+          return of(new SearchCoursesFailure());
+        })
+      );
+    })
+  );
+
+  @Effect() deleteCourse$: Observable<Action> = this.actions$.pipe(
+    ofType<DeleteCourse>(ActionTypes.DeleteCourse),
+    map((action) => action.courseId),
+    switchMap((courseId) => {
+      return this.coursesService.removeItem(courseId).pipe(
+        mapTo(new DeleteCourseSuccess(courseId)),
+        catchError((err) => {
+          console.log(err);
+          return of(err);
+        })
+      );
+    })
+  );
 }

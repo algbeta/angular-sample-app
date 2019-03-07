@@ -1,4 +1,8 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { State } from '../../reducers';
+import { Observable } from 'rxjs';
+import { SearchCourses } from 'src/app/actions/course.actions';
 
 @Component({
   selector: 'app-search',
@@ -7,12 +11,13 @@ import { Component, Output, EventEmitter, ChangeDetectionStrategy, Input } from 
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-  @Input() searchPhrase: string;
-  @Output() setSearchPhrase: EventEmitter<string> = new EventEmitter<string>();
-  constructor() {}
+  searchPhrase$: Observable<string>;
+
+  constructor(private store: Store<State>) {
+    this.searchPhrase$ = this.store.pipe(select('courses', 'query'));
+  }
 
   updateSearchValue(value: string) {
-    console.log(value);
-    this.setSearchPhrase.emit(value);
+    this.store.dispatch(new SearchCourses(value));
   }
 }
