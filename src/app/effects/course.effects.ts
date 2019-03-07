@@ -60,7 +60,7 @@ export class CourseEffects {
     withLatestFrom(this.store$.select('courses', 'loaded')),
     withLatestFrom(this.store$.select('courses', 'quantityPerRequest')),
     switchMap(([action, quantityPerRequest], loaded) => {
-      return this.coursesService.getList(loaded++, quantityPerRequest).pipe(
+      return this.coursesService.getList(++loaded, quantityPerRequest).pipe(
         concatMap((list: Course[]) => [
           new LoadCoursesSuccess(list),
           new AdjustLoaded(1)
