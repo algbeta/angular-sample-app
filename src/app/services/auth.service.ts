@@ -1,42 +1,29 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { HttpClient } from '@angular/common/http';
-import { of, Observable, BehaviorSubject } from 'rxjs';
+import { of, Observable } from 'rxjs';
+import LoginData from '../models/login-data.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private authUrl = 'http://localhost:3004/auth';
-  private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasTokenAndInfo());
 
   constructor(
     private localStorageService: LocalStorageService,
     private http: HttpClient
   ) {}
 
-  login(user: any, successCallback, errorCallback) {
-    return this.http
-      .post<any>(`${this.authUrl}/login`, user, {
-        headers: {}
-      })
-      .subscribe(
-        (data) => {
-          this.localStorageService.setItemInLocalStorage('token', data.token);
-          successCallback();
-          this.loadUserInfo();
-        },
-        (error) => errorCallback()
-      );
+  login(userData: LoginData) {
+    return this.http.post<any>(`${this.authUrl}/login`, userData, {
+      headers: {}
+    });
   }
 
   logout(): void {
     this.localStorageService.removeItemFromLocalStorage('user');
-    this.isLoggedInSubject.next(false);
-  }
-
-  isAuthentificated() {
-    return this.isLoggedInSubject.asObservable();
+    this.localStorageService.removeItemFromLocalStorage('token');
   }
 
   hasTokenAndInfo(): boolean {
@@ -45,11 +32,8 @@ export class AuthService {
     return !!userData && !!token;
   }
 
-  private loadUserInfo() {
-    this.http.post<any>(`${this.authUrl}/userinfo`, '').subscribe((data) => {
-      data && this.localStorageService.setItemInLocalStorage('user', data);
-      this.isLoggedInSubject.next(true);
-    });
+  loadUserInfo() {
+    return this.http.post<any>(`${this.authUrl}/userinfo`, '');
   }
 
   getUserInfo(): Observable<string> {
