@@ -1,4 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { State } from '../../reducers';
+import { DeleteCourse } from 'src/app/actions/course.actions';
 
 @Component({
   selector: 'app-modal',
@@ -8,8 +11,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class ModalComponent implements OnInit {
   open: boolean = false;
   private courseId: string = '';
-  @Output() handlerOnConfirm: EventEmitter<string> = new EventEmitter<string>();
-  constructor() {}
+  constructor(private store: Store<State>) {}
 
   ngOnInit() {}
 
@@ -24,7 +26,7 @@ export class ModalComponent implements OnInit {
   }
 
   confirm(): void {
-    this.handlerOnConfirm.emit(this.courseId);
+    this.store.dispatch(new DeleteCourse(this.courseId))
     this.open = false;
   }
 }

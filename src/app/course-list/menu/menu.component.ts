@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -7,13 +7,6 @@ import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy, Input
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  @Input() searchPhrase: string;
-  @Output() setSearchPhrase: EventEmitter<string> = new EventEmitter<string>();
   constructor() {}
-
   ngOnInit() {}
-
-  setSearchPhraseHandler(ev) {
-    this.setSearchPhrase.emit(ev);
-  }
 }

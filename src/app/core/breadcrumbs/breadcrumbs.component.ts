@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import {
-  ActivatedRoute,
-  Router,
-  NavigationEnd,
-  RouterLink
-} from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { State } from '../../reducers';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -17,13 +14,14 @@ import { Observable } from 'rxjs';
 export class BreadcrumbsComponent implements OnInit {
   public breadcrumbs: Breadcrumb[];
   private isLoggedIn: Observable<boolean>;
-  
+
   constructor(
     public authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private store: Store<State>
   ) {
-    this.isLoggedIn = this.authService.isAuthentificated();
+    this.isLoggedIn = this.store.pipe(select('auth','isAuthenticated'));
   }
 
   ngOnInit() {
