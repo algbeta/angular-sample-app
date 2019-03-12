@@ -1,7 +1,8 @@
 import {
   ActionTypes,
   LoginSuccess,
-  LoadUserInfoSuccess
+  LoadUserInfoSuccess,
+  ActionsUnion
 } from '../actions/auth.actions';
 import { Action } from '@ngrx/store';
 
@@ -21,7 +22,7 @@ const defaultState: State = {
   }
 };
 
-export function reducer(state: State = defaultState, action: Action): State {
+export function reducer(state: State = defaultState, action: ActionsUnion): State {
   switch (action.type) {
     case ActionTypes.LoginSuccess: {
       return {
@@ -38,7 +39,7 @@ export function reducer(state: State = defaultState, action: Action): State {
         isAuthenticated: true,
         user: {
           ...state.user,
-          username: (<LoadUserInfoSuccess>action).username
+          username: action.username
         }
       };
     }

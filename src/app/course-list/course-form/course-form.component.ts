@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import Course from 'src/app/models/course';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-course-form',
@@ -10,9 +11,17 @@ export class CourseFormComponent implements OnInit {
   @Input() course: Course;
   @Output() click: EventEmitter<Course> = new EventEmitter<Course>();
 
-  constructor() {}
+  courseForm = this.fb.group({
+    name: ['', Validators.required],
+    date: [''],
+    length: [0],
+    isTopRated: [false],
+    description: ['']
+  });
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
-    console.log(this.course);
+    this.courseForm.patchValue(this.course);
   }
 }

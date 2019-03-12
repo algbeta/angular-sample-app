@@ -1,51 +1,57 @@
 <div class="container">
-  <div class="form-group">
-    <label for="courseTitle">Title</label>
-    <input
-      type="text"
-      class="form-control"
-      id="courseTitle"
-      placeholder="title"
-      [value]="course.title || ''"
-    />
-  </div>
-  <div class="form-group">
-    <label for="courseDescription">Description</label>
-    <textarea
-      class="form-control"
-      id="courseDescription"
-      rows="3"
-      placeholder="course description"
-      [value]="course.description || ''"
-    ></textarea>
-  </div>
-  <div class="form-group">
-    <label for="courseDate">Date</label>
-    <input
-      class="form-control"
-      id="courseDate"
-      placeholder="course creation date"
-      [value]="(course.creationDate | date: 'dd.MM.yyyy') || ''"
-    />
-  </div>
-  <div class="form-group">
-    <label for="courseDuration">Duration</label>
-    <input
-      class="form-control"
-      id="courseDuration"
-      placeholder="course duration in minutes"
-      [value]="course.duration || ''"
-    />
-    <span>{{ (course.duration | minutesToHours) || '' }}</span>
-  </div>
-  <div class="form-group">
-    <label for="courseDuration">Authors</label>
-    <input
-      class="form-control"
-      id="courseDuration"
-      placeholder="course authors"
-    />
-  </div>
-  <button type="button" class="btn btn-primary" (click)="click.emit(course)">Save</button>
+  <form [formGroup]="courseForm">
+    <div class="form-group">
+      <label
+        >Title
+        <input
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="title"
+        />
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        Description
+        <textarea
+          class="form-control"
+          rows="3"
+          placeholder="course description"
+          formControlName="description"
+        ></textarea>
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        Date
+        <input
+          class="form-control"
+          placeholder="course creation date"
+          formControlName="creationDate"
+        />
+      </label>
+    </div>
+    <div class="form-group">
+      <label>
+        Duration
+        <input
+          class="form-control"
+          placeholder="course duration in minutes"
+          formControlName="duration"
+        />
+      </label>
+      <!-- >span>{{ (course.duration | minutesToHours) || '' }}</span -->
+    </div>
+    <div class="form-group">
+      <label
+        >Authors
+        <input class="form-control" placeholder="course authors" />
+      </label>
+    </div>
+  </form>
+  <button type="button" class="btn btn-primary" (click)="click.emit(course)">
+    Save
+  </button>
   <a type="button" class="btn btn-secondary" routerLink="/courses">Cancel</a>
 </div>
