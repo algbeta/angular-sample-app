@@ -5,7 +5,7 @@ class Course implements ICourse {
   name: string;
   date: string;
   length: number;
-  topRated: boolean;
+  isTopRated: boolean;
   description?: string;
 
   get creationDate(): Date {

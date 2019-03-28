@@ -1,9 +1,22 @@
 <div class="container">
   <form [formGroup]="courseForm">
     <div class="form-group">
+      <div
+        *ngIf="name.invalid && (name.dirty || name.touched)"
+        class="alert alert-danger"
+      >
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.maxlength">
+          Name must be max 50 characters long.
+        </div>
+      </div>
       <label
         >Title
         <input
+          #name
+          id="name"
           type="text"
           class="form-control"
           formControlName="name"
@@ -12,9 +25,23 @@
       </label>
     </div>
     <div class="form-group">
+      <div
+        *ngIf="
+          description.invalid && (description.dirty || description.touched)
+        "
+        class="alert alert-danger"
+      >
+        <div *ngIf="description.errors.maxlength">
+          Description must be max 500 characters long.
+        </div>
+        <div *ngIf="description.errors.required">
+          Description is required.
+        </div>
+      </div>
       <label>
         Description
         <textarea
+          #description
           class="form-control"
           rows="3"
           placeholder="course description"
@@ -23,25 +50,37 @@
       </label>
     </div>
     <div class="form-group">
-      <label>
-        Date
-        <input
-          class="form-control"
-          placeholder="course creation date"
-          formControlName="creationDate"
-        />
-      </label>
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          (courseForm.get('date').dirty || courseForm.get('date').touched) &&
+          courseForm.get('date').errors
+        "
+      >
+        <div *ngIf="courseForm.get('date').errors.invalidDate">
+          Date format is invalid.
+        </div>
+        <div *ngIf="courseForm.get('date').errors.required">
+          Date is required.
+        </div>
+      </div>
+      <app-date-input
+        #date
+        label="Date"
+        formControlName="date"
+      ></app-date-input>
     </div>
     <div class="form-group">
       <label>
         Duration
         <input
+          #duration
           class="form-control"
           placeholder="course duration in minutes"
-          formControlName="duration"
+          formControlName="length"
         />
       </label>
-      <!-- >span>{{ (course.duration | minutesToHours) || '' }}</span -->
+      <span>{{ (duration.value | minutesToHours) || '' }}</span>
     </div>
     <div class="form-group">
       <label
@@ -55,3 +94,4 @@
   </button>
   <a type="button" class="btn btn-secondary" routerLink="/courses">Cancel</a>
 </div>
+<pre><code>{{ courseForm.value | json }}</code></pre>

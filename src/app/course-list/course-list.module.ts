@@ -13,6 +13,7 @@ import { CourseFormComponent } from './course-form/course-form.component';
 import { EditCourseFormComponent } from './edit-course-form/edit-course-form.component';
 import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
 import { CoursesRoutesModule } from './course-routing.module';
+import { DateInputComponent } from './course-form/date-input/date-input.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { CoursesRoutesModule } from './course-routing.module';
     ModalComponent,
     CourseFormComponent,
     EditCourseFormComponent,
-    NewCourseFormComponent
+    NewCourseFormComponent,
+    DateInputComponent
   ],
   imports: [
     CommonModule,
