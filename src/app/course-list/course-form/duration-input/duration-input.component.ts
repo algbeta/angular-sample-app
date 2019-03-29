@@ -1,17 +1,15 @@
 import { Component, OnInit, Input, Self, Optional } from '@angular/core';
 import {
   ControlValueAccessor,
-  NgControl,
-  ValidatorFn,
-  FormControl
+  NgControl
 } from '@angular/forms';
 
 @Component({
-  selector: 'app-date-input',
-  templateUrl: './date-input.component.html',
-  styleUrls: ['./date-input.component.scss']
+  selector: 'app-duration-input',
+  templateUrl: './duration-input.component.html',
+  styleUrls: ['./duration-input.component.scss']
 })
-export class DateInputComponent implements OnInit, ControlValueAccessor {
+export class DurationInputComponent implements OnInit, ControlValueAccessor {
   @Input() disabled: boolean;
   @Input() label: string;
 
@@ -47,16 +45,4 @@ export class DateInputComponent implements OnInit, ControlValueAccessor {
 
   private onChange() {}
   private onTouched() {}
-}
-
-export function dateFormatValidator(): ValidatorFn {
-  return (formControl: FormControl) => {
-    const dateRegex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/;
-
-    return dateRegex.test(formControl.value)
-      ? null
-      : {
-          invalidDate: true
-        };
-  };
 }

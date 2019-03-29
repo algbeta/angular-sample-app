@@ -14,6 +14,8 @@ import { EditCourseFormComponent } from './edit-course-form/edit-course-form.com
 import { NewCourseFormComponent } from './new-course-form/new-course-form.component';
 import { CoursesRoutesModule } from './course-routing.module';
 import { DateInputComponent } from './course-form/date-input/date-input.component';
+import { DurationInputComponent } from './course-form/duration-input/duration-input.component';
+import { OnlyNumbersValidatorDirective } from './course-form/duration-input/only-numbers-validator.directive';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { DateInputComponent } from './course-form/date-input/date-input.componen
     CourseFormComponent,
     EditCourseFormComponent,
     NewCourseFormComponent,
-    DateInputComponent
+    DateInputComponent,
+    DurationInputComponent,
+    OnlyNumbersValidatorDirective
   ],
   imports: [
     CommonModule,

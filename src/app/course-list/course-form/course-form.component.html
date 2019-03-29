@@ -74,16 +74,29 @@
       ></app-date-input>
     </div>
     <div class="form-group">
-      <label>
-        Duration
-        <input
-          #duration
-          class="form-control"
-          placeholder="course duration in minutes"
-          formControlName="length"
-        />
-      </label>
-      <span>{{ (duration.value | minutesToHours) || '' }}</span>
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          (courseForm.get('length').dirty ||
+            courseForm.get('length').touched) &&
+          courseForm.get('length').errors
+        "
+      >
+        <div *ngIf="courseForm.get('length').errors.invalidNumber">
+          Only numbers are allowed!
+        </div>
+        <div *ngIf="courseForm.get('length').errors.required">
+          Duration is required.
+        </div>
+      </div>
+      <app-duration-input
+        formControlName="length"
+        label="Duration"
+        onlyNumbers
+      ></app-duration-input>
+      <span *ngIf="courseForm.get('length').valid">{{
+        courseForm.get('length').value | minutesToHours
+      }}</span>
     </div>
     <div class="form-group">
       <label
