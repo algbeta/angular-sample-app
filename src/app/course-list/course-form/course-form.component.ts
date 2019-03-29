@@ -3,7 +3,7 @@ import {
   Input,
   EventEmitter,
   Output,
-  AfterViewInit,
+  AfterContentInit,
 } from '@angular/core';
 import Course from 'src/app/models/course';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -16,7 +16,7 @@ import { dateFormatValidator } from './date-input/date-input.component'
   providers: [DatePipe],
   styleUrls: ['./course-form.component.scss'],
 })
-export class CourseFormComponent implements AfterViewInit {
+export class CourseFormComponent implements AfterContentInit {
   @Input() course: Course;
   @Output() click: EventEmitter<Course> = new EventEmitter<Course>();
 
@@ -30,7 +30,7 @@ export class CourseFormComponent implements AfterViewInit {
 
   constructor(private fb: FormBuilder, private datePipe: DatePipe) {}
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     this.courseForm.setValue({
       name: this.course.name,
       date:

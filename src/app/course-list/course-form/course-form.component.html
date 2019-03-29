@@ -2,20 +2,22 @@
   <form [formGroup]="courseForm">
     <div class="form-group">
       <div
-        *ngIf="name.invalid && (name.dirty || name.touched)"
+        *ngIf="
+          (courseForm.get('name').dirty || courseForm.get('name').touched) &&
+          courseForm.get('name').errors
+        "
         class="alert alert-danger"
       >
-        <div *ngIf="name.errors.required">
+        <div *ngIf="courseForm.get('name').errors.required">
           Name is required.
         </div>
-        <div *ngIf="name.errors.maxlength">
+        <div *ngIf="courseForm.get('name').errors.maxlength">
           Name must be max 50 characters long.
         </div>
       </div>
       <label
         >Title
         <input
-          #name
           id="name"
           type="text"
           class="form-control"
@@ -27,21 +29,22 @@
     <div class="form-group">
       <div
         *ngIf="
-          description.invalid && (description.dirty || description.touched)
+          (courseForm.get('description').dirty ||
+            courseForm.get('description').touched) &&
+          courseForm.get('description').errors
         "
         class="alert alert-danger"
       >
-        <div *ngIf="description.errors.maxlength">
+        <div *ngIf="courseForm.get('description').errors.maxlength">
           Description must be max 500 characters long.
         </div>
-        <div *ngIf="description.errors.required">
+        <div *ngIf="courseForm.get('description').errors.required">
           Description is required.
         </div>
       </div>
       <label>
         Description
         <textarea
-          #description
           class="form-control"
           rows="3"
           placeholder="course description"
@@ -89,9 +92,13 @@
       </label>
     </div>
   </form>
-  <button type="button" class="btn btn-primary" (click)="click.emit(course)">
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="click.emit(course)"
+    [disabled]="!courseForm.valid"
+  >
     Save
   </button>
   <a type="button" class="btn btn-secondary" routerLink="/courses">Cancel</a>
 </div>
-<pre><code>{{ courseForm.value | json }}</code></pre>
