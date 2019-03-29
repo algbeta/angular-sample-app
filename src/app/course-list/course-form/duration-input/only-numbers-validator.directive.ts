@@ -18,7 +18,6 @@ import {
 })
 export class OnlyNumbersValidatorDirective implements Validator {
   validate(formControl: FormControl): ValidationErrors {
-    debugger;
     const numberRegex = /^\d+$/;
     const isValid = numberRegex.test(formControl.value);
     return isValid ? null : { invalidNumber: true };
