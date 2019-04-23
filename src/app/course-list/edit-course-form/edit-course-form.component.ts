@@ -21,6 +21,8 @@ export class EditCourseFormComponent implements OnInit {
     private store: Store<State>
   ) {}
 
+  
+
   ngOnInit() {
     // since user gets to this page from the courses list
     // I assume the course is loaded already
@@ -36,10 +38,10 @@ export class EditCourseFormComponent implements OnInit {
     );
   }
 
-  updateCourse(course: Course) {
+  /*updateCourse(course: Course) {
     // haven't updated
     if (this.service.updateItem(course)) {
       this.router.navigate(['/courses']);
     }
-  }
+  }*/
 }

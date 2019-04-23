@@ -1,51 +1,117 @@
 <div class="container">
-  <div class="form-group">
-    <label for="courseTitle">Title</label>
-    <input
-      type="text"
-      class="form-control"
-      id="courseTitle"
-      placeholder="title"
-      [value]="course.title || ''"
-    />
-  </div>
-  <div class="form-group">
-    <label for="courseDescription">Description</label>
-    <textarea
-      class="form-control"
-      id="courseDescription"
-      rows="3"
-      placeholder="course description"
-      [value]="course.description || ''"
-    ></textarea>
-  </div>
-  <div class="form-group">
-    <label for="courseDate">Date</label>
-    <input
-      class="form-control"
-      id="courseDate"
-      placeholder="course creation date"
-      [value]="(course.creationDate | date: 'dd.MM.yyyy') || ''"
-    />
-  </div>
-  <div class="form-group">
-    <label for="courseDuration">Duration</label>
-    <input
-      class="form-control"
-      id="courseDuration"
-      placeholder="course duration in minutes"
-      [value]="course.duration || ''"
-    />
-    <span>{{ (course.duration | minutesToHours) || '' }}</span>
-  </div>
-  <div class="form-group">
-    <label for="courseDuration">Authors</label>
-    <input
-      class="form-control"
-      id="courseDuration"
-      placeholder="course authors"
-    />
-  </div>
-  <button type="button" class="btn btn-primary" (click)="click.emit(course)">Save</button>
+  <form [formGroup]="courseForm">
+    <div class="form-group">
+      <div
+        *ngIf="
+          (courseForm.get('name').dirty || courseForm.get('name').touched) &&
+          courseForm.get('name').errors
+        "
+        class="alert alert-danger"
+      >
+        <div *ngIf="courseForm.get('name').errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="courseForm.get('name').errors.maxlength">
+          Name must be max 50 characters long.
+        </div>
+      </div>
+      <label
+        >Title
+        <input
+          id="name"
+          type="text"
+          class="form-control"
+          formControlName="name"
+          placeholder="title"
+        />
+      </label>
+    </div>
+    <div class="form-group">
+      <div
+        *ngIf="
+          (courseForm.get('description').dirty ||
+            courseForm.get('description').touched) &&
+          courseForm.get('description').errors
+        "
+        class="alert alert-danger"
+      >
+        <div *ngIf="courseForm.get('description').errors.maxlength">
+          Description must be max 500 characters long.
+        </div>
+        <div *ngIf="courseForm.get('description').errors.required">
+          Description is required.
+        </div>
+      </div>
+      <label>
+        Description
+        <textarea
+          class="form-control"
+          rows="3"
+          placeholder="course description"
+          formControlName="description"
+        ></textarea>
+      </label>
+    </div>
+    <div class="form-group">
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          (courseForm.get('date').dirty || courseForm.get('date').touched) &&
+          courseForm.get('date').errors
+        "
+      >
+        <div *ngIf="courseForm.get('date').errors.invalidDate">
+          Date format is invalid.
+        </div>
+        <div *ngIf="courseForm.get('date').errors.required">
+          Date is required.
+        </div>
+      </div>
+      <app-date-input
+        #date
+        label="Date"
+        formControlName="date"
+      ></app-date-input>
+    </div>
+    <div class="form-group">
+      <div
+        class="alert alert-danger"
+        *ngIf="
+          (courseForm.get('length').dirty ||
+            courseForm.get('length').touched) &&
+          courseForm.get('length').errors
+        "
+      >
+        <div *ngIf="courseForm.get('length').errors.invalidNumber">
+          Only numbers are allowed!
+        </div>
+        <div *ngIf="courseForm.get('length').errors.required">
+          Duration is required.
+        </div>
+      </div>
+      <app-duration-input
+        formControlName="length"
+        label="Duration"
+        onlyNumbers
+      ></app-duration-input>
+      <span *ngIf="courseForm.get('length').valid">{{
+        courseForm.get('length').value | minutesToHours
+      }}</span>
+    </div>
+    <div class="form-group">
+      <label
+        >Authors
+        <input class="form-control" placeholder="course authors" />
+      </label>
+    </div>
+  </form>
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="click.emit(course)"
+    [disabled]="!courseForm.valid"
+  >
+    Save
+  </button>
   <a type="button" class="btn btn-secondary" routerLink="/courses">Cancel</a>
 </div>

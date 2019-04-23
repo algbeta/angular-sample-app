@@ -1,0 +1,13 @@
+<label>{{ label }}</label>
+<input
+  type="text"
+  placeholder="Course duration in minutes"
+  [value]="value"
+  [disabled]="disabled"
+  class="form-control"
+  (input)="onChange($event.target.value)"
+  (blur)="onTouched()"
+  [(ngModel)]="value"
+  #durationInput="ngModel"
+/>
+
